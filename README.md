@@ -36,7 +36,7 @@ Sistema desenvolvido em Java para gerenciamento acadêmico da FCTE, permitindo c
 1. **Estrutura de pastas necessária:**
 ```
 sistema-academico/
-├── modelo/
+├── model/
 │   ├── Pessoa.java
 │   ├── Aluno.java
 │   ├── AlunoEspecial.java
