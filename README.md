@@ -1,29 +1,26 @@
-# Sistema Acadêmico FCTE
+# Sistema Acadêmico - FCTE
 
-Sistema desenvolvido em Java para gerenciamento acadêmico da FCTE, permitindo controle de alunos, disciplinas, professores, turmas e avaliações.
+## Descrição do Projeto
 
-## 📋 Funcionalidades
+Desenvolvimento de um sistema acadêmico para gerenciar alunos, disciplinas, professores, turmas, avaliações e frequência, utilizando os conceitos de orientação a objetos (herança, polimorfismo e encapsulamento) e persistência de dados em arquivos.
 
-### Modo Aluno
-- Cadastro de alunos normais e especiais
-- Matrícula em disciplinas com verificação de pré-requisitos
-- Controle de vagas por turma
-- Trancamento de disciplinas
-- Validação de duplicidade por matrícula
+O enunciado do trabalho pode ser encontrado aqui:
+- [Trabalho 1 - Sistema Acadêmico](https://github.com/lboaventura25/OO-T06_2025.1_UnB_FCTE/blob/main/trabalhos/ep1/README.md)
 
-### Modo Disciplina/Turma
-- Cadastro de disciplinas com pré-requisitos
-- Cadastro de professores
-- Criação de turmas (presenciais e remotas)
-- Controle de capacidade e horários
-- Duas formas de avaliação configuráveis
+## Dados do Aluno
 
-### Modo Avaliação/Frequência
-- Lançamento de notas e presenças
-- Cálculo automático de médias
-- Relatórios por turma, disciplina e professor
-- Boletins individuais por aluno
-- Controle de aprovação (nota ≥ 5 e frequência ≥ 75%)
+- **Nome completo:** Pedro Henrique Monteiro Nascimento
+- **Matrícula:** 241011582
+- **Curso:** Engenharias (3º Semestre)
+- **Turma:** T06 2025.1
+
+---
+
+## Vídeo de Demonstração
+
+- [Inserir o link para o vídeo no YouTube/Drive aqui]
+
+---
 
 ## 🚀 Como Executar
 
@@ -73,4 +70,41 @@ javac -d . modelo/*.java util/*.java SistemaAcademico.java
 java SistemaAcademico
 ```
 
-##
+---
+
+## Prints da Execução
+
+1. Menu Principal:  
+   ![Inserir Print 1](caminho/do/print1.png)
+
+2. Cadastro de Aluno:  
+   ![Inserir Print 2](caminho/do/print2.png)
+
+3. Relatório de Frequência/Notas:  
+   ![Inserir Print 3](caminho/do/print3.png)
+
+---
+
+## Principais Funcionalidades Implementadas
+
+- [x] Cadastro, listagem, matrícula e trancamento de alunos (Normais e Especiais)
+- [x] Cadastro de disciplinas e criação de turmas (presenciais e remotas)
+- [x] Matrícula de alunos em turmas, respeitando vagas e pré-requisitos
+- [x] Lançamento de notas e controle de presença
+- [x] Cálculo de média final e verificação de aprovação/reprovação
+- [x] Relatórios de desempenho acadêmico por aluno, turma e disciplina
+- [x] Persistência de dados em arquivos (.txt ou .csv)
+- [x] Tratamento de duplicidade de matrículas
+- [x] Uso de herança, polimorfismo e encapsulamento
+
+---
+
+## Observações (Extras ou Dificuldades)
+
+- [Espaço para o aluno comentar qualquer funcionalidade extra que implementou, dificuldades enfrentadas, ou considerações importantes.]
+
+---
+
+## Contato
+
+- [nascimento.monteiro@aluno.unb.br]
