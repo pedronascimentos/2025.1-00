@@ -56,7 +56,7 @@ sistema-academico/
 compilar.bat
 
 # Ou compile manualmente:
-javac -d . modelo/*.java util/*.java SistemaAcademico.java
+javac -d . model/*.java util/*.java SistemaAcademico.java
 java SistemaAcademico
 ```
 
