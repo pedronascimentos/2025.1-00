@@ -56,7 +56,7 @@ sistema-academico/
 compilar.bat
 
 # Ou compile manualmente:
-javac -d . modelo/*.java util/*.java SistemaAcademico.java
+javac -d . model/*.java util/*.java SistemaAcademico.java
 java SistemaAcademico
 ```
 
@@ -75,14 +75,20 @@ java SistemaAcademico
 
 ## Prints da Execução
 
-1. Menu Principal:  
-   ![Inserir Print 1](caminho/do/print1.png)
-
-2. Cadastro de Aluno:  
-   ![Inserir Print 2](caminho/do/print2.png)
-
-3. Relatório de Frequência/Notas:  
-   ![Inserir Print 3](caminho/do/print3.png)
+<div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+    <div style="text-align: center;">
+        1. Menu Principal:<br>
+        <img src="assets/Menu.png" style="width: 350px; height: auto; border: 1px solid #ddd;">
+    </div>
+    <div style="text-align: center;">
+        2. Cadastro de Aluno:<br>
+        <img src="assets/CadastroAluno.png" style="width: 350px; height: auto; border: 1px solid #ddd;">
+    </div>
+    <div style="text-align: center;">
+        3. Relatório de Frequência/Notas:<br>
+        <img src="assets/Relatorio.png" style="width: 350px; height: auto; border: 1px solid #ddd;">
+    </div>
+</div>
 
 
 ## Principais Funcionalidades Implementadas
