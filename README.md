@@ -18,7 +18,7 @@ O enunciado do trabalho pode ser encontrado aqui:
 
 ## Vídeo de Demonstração
 
-- [Inserir o link para o vídeo no YouTube/Drive aqui]
+- [Video](https://youtu.be/GeE-cne07RI)
 
 
 
@@ -66,7 +66,7 @@ chmod +x compilar.sh
 ./compilar.sh
 
 # Ou compile manualmente:
-javac -d . modelo/*.java util/*.java SistemaAcademico.java
+javac -d . model/*.java util/*.java SistemaAcademico.java
 java SistemaAcademico
 ```
 
