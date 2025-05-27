@@ -570,6 +570,15 @@ public class SistemaAcademico {
     }
     
     private void lancarNotas() {
+        System.out.print("Código da turma: ");
+        String codigoTurma = scanner.nextLine();
+        
+        Turma turma = buscarTurma(codigoTurma);
+        if (turma == null) {
+            System.out.println("Turma não encontrada!");
+            return;
+        }
+        
         System.out.print("Matrícula do aluno: ");
         String matricula = scanner.nextLine();
         
@@ -578,9 +587,14 @@ public class SistemaAcademico {
             System.out.println("Aluno não encontrado!");
             return;
         }
-        
+
         if (aluno instanceof AlunoEspecial) {
-            System.out.println("Alunos especiais não recebem notas, apenas presença.");
+            System.out.println("Erro: Alunos especiais não recebem notas!");
+            return;
+        }
+        
+        if (!turma.getAlunosMatriculados().contains(matricula)) {
+            System.out.println("Aluno não está matriculado nesta turma!");
             return;
         }
         
@@ -915,6 +929,10 @@ public class SistemaAcademico {
     // Métodos de persistência
     private void carregarDados() {
         alunos = GerenciadorDados.carregarAlunos();
+        professores = GerenciadorDados.carregarProfessores();
+        disciplinas = GerenciadorDados.carregarDisciplinas();
+        turmas = GerenciadorDados.carregarTurmas();
+        avaliacoes = GerenciadorDados.carregarAvaliacoes();
         // Outros carregamentos podem ser implementados similarmente
         System.out.println("Dados carregados: " + alunos.size() + " alunos");
     }
@@ -924,6 +942,7 @@ public class SistemaAcademico {
         GerenciadorDados.salvarProfessores(professores);
         GerenciadorDados.salvarDisciplinas(disciplinas);
         GerenciadorDados.salvarTurmas(turmas);
+        GerenciadorDados.salvarAvaliacoes(avaliacoes);
     }
     
     // Método main

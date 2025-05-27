@@ -134,17 +134,106 @@ public class GerenciadorDados {
     
     // Métodos similares para outros dados...
     public static void salvarProfessores(List<Professor> professores) {
-        salvarDados(professores, ARQUIVO_PROFESSORES);
+        try {
+            new File("dados").mkdirs();
+            PrintWriter writer = new PrintWriter(new FileWriter(ARQUIVO_PROFESSORES));
+            
+            for (Professor professor : professores) {
+                writer.println(professor.getNome() + ";" +
+                             professor.getMatricula() + ";" +
+                             professor.getDepartamento() + ";" +
+                             String.join(",", professor.getTurmasResponsavel()));
+            }
+            
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar professores: " + e.getMessage());
+        }
     }
     
     public static void salvarDisciplinas(List<Disciplina> disciplinas) {
-        salvarDados(disciplinas, ARQUIVO_DISCIPLINAS);
+        try {
+            new File("dados").mkdirs();
+            PrintWriter writer = new PrintWriter(new FileWriter(ARQUIVO_DISCIPLINAS));
+            
+            for (Disciplina disciplina : disciplinas) {
+                writer.println(disciplina.getCodigo() + ";" +
+                             disciplina.getNome() + ";" +
+                             disciplina.getCargaHoraria() + ";" +
+                             String.join(",", disciplina.getPreRequisitos()));
+            }
+            
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar disciplinas: " + e.getMessage());
+        }
     }
     
     public static void salvarTurmas(List<Turma> turmas) {
-        salvarDados(turmas, ARQUIVO_TURMAS);
+        try {
+            new File("dados").mkdirs();
+            PrintWriter writer = new PrintWriter(new FileWriter(ARQUIVO_TURMAS));
+            
+            for (Turma turma : turmas) {
+                writer.println(turma.getCodigo() + ";" +
+                             turma.getCodigoDisciplina() + ";" +
+                             turma.getProfessorResponsavel() + ";" +
+                             turma.getSemestre() + ";" +
+                             turma.getFormaAvaliacao() + ";" +
+                             turma.isPresencial() + ";" +
+                             turma.getSala() + ";" +
+                             turma.getHorario() + ";" +
+                             turma.getCapacidadeMaxima() + ";" +
+                             String.join(",", turma.getAlunosMatriculados()));
+            }
+            
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar turmas: " + e.getMessage());
+        }
     }
-    // Adicione estes métodos para completar a classe:
+    
+    public static void salvarAvaliacoes(List<AvaliacaoFrequencia> avaliacoes) {
+        try {
+            new File("dados").mkdirs();
+            PrintWriter writer = new PrintWriter(new FileWriter(ARQUIVO_AVALIACOES));
+            
+            for (AvaliacaoFrequencia avaliacao : avaliacoes) {
+                writer.println(avaliacao.getMatriculaAluno() + ";" + 
+                             avaliacao.getCodigoTurma() + ";" +
+                             avaliacao.getMediaFinal() + ";" +
+                             avaliacao.getPresencas() + ";" +
+                             avaliacao.getTotalAulas());
+            }
+            
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar avaliações: " + e.getMessage());
+        }
+    }
+    
+    public static List<AvaliacaoFrequencia> carregarAvaliacoes() {
+        List<AvaliacaoFrequencia> avaliacoes = new ArrayList<>();
+        try {
+            File file = new File(ARQUIVO_AVALIACOES);
+            if (!file.exists() || file.length() == 0) return avaliacoes;
+            
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String[] dados = scanner.nextLine().split(";");
+                if (dados.length >= 5) {
+                    AvaliacaoFrequencia avaliacao = new AvaliacaoFrequencia(dados[0], dados[1]);
+                    avaliacao.setMediaFinal(Double.parseDouble(dados[2]));
+                    avaliacao.setPresencas(Integer.parseInt(dados[3]));
+                    avaliacoes.add(avaliacao);
+                }
+            }
+            scanner.close();
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Erro ao carregar avaliações: " + e.getMessage());
+        }
+        return avaliacoes;
+    }
 
     public static List<Professor> carregarProfessores() {
         List<Professor> professores = new ArrayList<>();
@@ -156,7 +245,13 @@ public class GerenciadorDados {
             while (scanner.hasNextLine()) {
                 String[] dados = scanner.nextLine().split(";");
                 if (dados.length >= 3) {
-                    professores.add(new Professor(dados[0], dados[1], dados[2]));
+                    Professor professor = new Professor(dados[0], dados[1], dados[2]);
+                    if (dados.length > 3 && !dados[3].isEmpty()) {
+                        for (String turma : dados[3].split(",")) {
+                            professor.adicionarTurma(turma);
+                        }
+                    }
+                    professores.add(professor);
                 }
             }
             scanner.close();
@@ -176,7 +271,20 @@ public class GerenciadorDados {
             while (scanner.hasNextLine()) {
                 String[] dados = scanner.nextLine().split(";");
                 if (dados.length >= 3) {
-                    disciplinas.add(new Disciplina(dados[0], dados[1], Integer.parseInt(dados[2])));
+                    Disciplina disciplina = new Disciplina(
+                        dados[0],                    // código
+                        dados[1],                    // nome
+                        Integer.parseInt(dados[2])   // cargaHoraria
+                    );
+                    
+                    // Carregar pré-requisitos se existirem
+                    if (dados.length > 3 && !dados[3].isEmpty()) {
+                        for (String preReq : dados[3].split(",")) {
+                            disciplina.adicionarPreRequisito(preReq);
+                        }
+                    }
+                    
+                    disciplinas.add(disciplina);
                 }
             }
             scanner.close();
@@ -184,5 +292,44 @@ public class GerenciadorDados {
             System.out.println("Erro ao carregar disciplinas: " + e.getMessage());
         }
         return disciplinas;
+    }
+
+    public static List<Turma> carregarTurmas() {
+        List<Turma> turmas = new ArrayList<>();
+        try {
+            File file = new File(ARQUIVO_TURMAS);
+            if (!file.exists() || file.length() == 0) return turmas;
+            
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String[] dados = scanner.nextLine().split(";");
+                if (dados.length >= 9) {
+                    Turma turma = new Turma(
+                        dados[0],                    // código
+                        dados[1],                    // codigoDisciplina
+                        dados[2],                    // professorResponsavel
+                        dados[3],                    // semestre
+                        Turma.TipoAvaliacao.valueOf(dados[4]), // formaAvaliacao
+                        Boolean.parseBoolean(dados[5]), // presencial
+                        dados[6],                    // sala
+                        dados[7],                    // horario
+                        Integer.parseInt(dados[8])   // capacidadeMaxima
+                    );
+                    
+                    // Se houver alunos matriculados (opcional)
+                    if (dados.length > 9 && !dados[9].isEmpty()) {
+                        for (String matricula : dados[9].split(",")) {
+                            turma.matricularAluno(matricula);
+                        }
+                    }
+                    
+                    turmas.add(turma);
+                }
+            }
+            scanner.close();
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Erro ao carregar turmas: " + e.getMessage());
+        }
+        return turmas;
     }
 }
