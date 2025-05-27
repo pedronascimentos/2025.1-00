@@ -128,12 +128,13 @@ public class SistemaAcademico {
         Aluno novoAluno;
         if (especial) {
             novoAluno = new AlunoEspecial(nome, matricula, curso);
+            System.out.println("Aluno Especial cadastrado com sucesso! Lembre-se: Alunos especiais podem cursar no máximo 2 disciplinas e não recebem notas.");
         } else {
             novoAluno = new Aluno(nome, matricula, curso);
+            System.out.println("Aluno Normal cadastrado com sucesso!");
         }
         
         alunos.add(novoAluno);
-        System.out.println("Aluno cadastrado com sucesso!");
     }
     
     private void listarAlunos() {
