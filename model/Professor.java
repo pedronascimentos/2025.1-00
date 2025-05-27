@@ -17,7 +17,6 @@ public class Professor extends Pessoa {
         return "Professor";
     }
     
-    // Encapsulamento
     public String getDepartamento() { return departamento; }
     public void setDepartamento(String departamento) { this.departamento = departamento; }
     public List<String> getTurmasResponsavel() { return new ArrayList<>(turmasResponsavel); }

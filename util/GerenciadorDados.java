@@ -11,7 +11,6 @@ public class GerenciadorDados {
     private static final String ARQUIVO_TURMAS = "dados/turmas.csv";
     private static final String ARQUIVO_AVALIACOES = "dados/avaliacoes.csv";
     
-    // Polimorfismo - método genérico para salvar qualquer tipo de dados
     public static <T> void salvarDados(List<T> dados, String nomeArquivo) {
         try {
             new File("dados").mkdirs();
@@ -36,10 +35,8 @@ public class GerenciadorDados {
                 writer.println(aluno.getTipo() + ";" + aluno.getNome() + ";" + 
                               aluno.getMatricula() + ";" + aluno.getCurso());
                 
-                // Salvar disciplinas matriculadas
+                // Salvar 
                 writer.println("DISCIPLINAS:" + String.join(",", aluno.getDisciplinasMatriculadas()));
-                
-                // Salvar notas
                 for (Map.Entry<String, Map<String, Double>> entry : aluno.getNotas().entrySet()) {
                     String disciplina = entry.getKey();
                     Map<String, Double> notas = entry.getValue();
@@ -50,7 +47,6 @@ public class GerenciadorDados {
                     writer.println();
                 }
                 
-                // Salvar presenças
                 for (Map.Entry<String, Integer> entry : aluno.getPresencas().entrySet()) {
                     writer.println("PRESENCA:" + entry.getKey() + ":" + entry.getValue());
                 }
@@ -86,7 +82,7 @@ public class GerenciadorDados {
                         aluno = new Aluno(dados[1], dados[2], dados[3]);
                     }
                     
-                    // Carregar dados adicionais
+                    // Carregar dados 
                     while (scanner.hasNextLine()) {
                         String linhaDados = scanner.nextLine();
                         if (linhaDados.equals("---")) break;
@@ -131,8 +127,7 @@ public class GerenciadorDados {
         
         return alunos;
     }
-    
-    // Métodos similares para outros dados...
+
     public static void salvarProfessores(List<Professor> professores) {
         try {
             new File("dados").mkdirs();
@@ -272,12 +267,12 @@ public class GerenciadorDados {
                 String[] dados = scanner.nextLine().split(";");
                 if (dados.length >= 3) {
                     Disciplina disciplina = new Disciplina(
-                        dados[0],                    // código
+                        dados[0],                    // codigo
                         dados[1],                    // nome
                         Integer.parseInt(dados[2])   // cargaHoraria
                     );
                     
-                    // Carregar pré-requisitos se existirem
+                    // Carregar pre-requisitos se existirem
                     if (dados.length > 3 && !dados[3].isEmpty()) {
                         for (String preReq : dados[3].split(",")) {
                             disciplina.adicionarPreRequisito(preReq);
@@ -305,7 +300,7 @@ public class GerenciadorDados {
                 String[] dados = scanner.nextLine().split(";");
                 if (dados.length >= 9) {
                     Turma turma = new Turma(
-                        dados[0],                    // código
+                        dados[0],                    // codigo
                         dados[1],                    // codigoDisciplina
                         dados[2],                    // professorResponsavel
                         dados[3],                    // semestre
@@ -316,7 +311,6 @@ public class GerenciadorDados {
                         Integer.parseInt(dados[8])   // capacidadeMaxima
                     );
                     
-                    // Se houver alunos matriculados (opcional)
                     if (dados.length > 9 && !dados[9].isEmpty()) {
                         for (String matricula : dados[9].split(",")) {
                             turma.matricularAluno(matricula);

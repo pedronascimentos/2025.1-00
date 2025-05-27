@@ -46,7 +46,8 @@ sistema-academico/
 ├── SistemaAcademico.java
 ├── compilar.bat (Windows)
 ├── compilar.sh (Linux/Mac)
-└── dados/ (criada automaticamente)
+├── dados/ (criada automaticamente)
+└── assets/ (documentação)
 ```
 
 2. **Para Windows:**

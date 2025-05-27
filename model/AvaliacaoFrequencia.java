@@ -19,10 +19,9 @@ public class AvaliacaoFrequencia implements Serializable {
     public AvaliacaoFrequencia(String matriculaAluno, String codigoTurma) {
         this.matriculaAluno = matriculaAluno;
         this.codigoTurma = codigoTurma;
-        this.totalAulas = 60; // assumindo 60 aulas por semestre
+        this.totalAulas = 60;
     }
     
-    // Encapsulamento
     public String getMatriculaAluno() { return matriculaAluno; }
     public String getCodigoTurma() { return codigoTurma; }
     public double getMediaFinal() { return mediaFinal; }
@@ -36,7 +35,6 @@ public class AvaliacaoFrequencia implements Serializable {
         return totalAulas > 0 ? (double) presencas / totalAulas * 100 : 0;
     }
     
-    // Polimorfismo - método para determinar status do aluno
     public StatusAluno calcularStatus() {
         double frequencia = getFrequencia();
         

@@ -12,16 +12,14 @@ public class AlunoEspecial extends Aluno {
         return "Aluno Especial";
     }
     
-    // Polimorfismo - sobrescrevendo método da classe pai
     @Override
     public boolean podeMatricular(String disciplina) {
         return super.podeMatricular(disciplina) && 
                getDisciplinasMatriculadas().size() < MAX_DISCIPLINAS;
     }
     
-    // Aluno especial não recebe notas, apenas presença
     @Override
     public void lancarNota(String disciplina, String tipo, double valor) {
-        // Não faz nada - alunos especiais não recebem notas
+        // Alunos especiais não recebem notas
     }
 }

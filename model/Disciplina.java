@@ -18,7 +18,6 @@ public class Disciplina implements Serializable {
         this.turmas = new ArrayList<>();
     }
     
-    // Encapsulamento
     public String getCodigo() { return codigo; }
     public String getNome() { return nome; }
     public int getCargaHoraria() { return cargaHoraria; }

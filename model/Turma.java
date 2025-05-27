@@ -59,7 +59,6 @@ public class Turma implements Serializable {
         return false;
     }
     
-    // Polimorfismo - método para calcular média final
     public double calcularMediaFinal(Map<String, Double> notas) {
         double p1 = notas.getOrDefault("P1", 0.0);
         double p2 = notas.getOrDefault("P2", 0.0);
@@ -70,7 +69,7 @@ public class Turma implements Serializable {
         switch (formaAvaliacao) {
             case TIPO1:
                 return (p1 + p2 + p3 + l + s) / 5.0;
-            case TIPO2:
+            case TIPO2: // (P1 + P2*2 + P3*3 + L + S) / 8
                 return (p1 + p2 * 2 + p3 * 3 + l + s) / 8.0;
             default:
                 return 0.0;
