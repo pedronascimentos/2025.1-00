@@ -185,9 +185,15 @@ public class SistemaAcademico {
         
         // Verificar se pode matricular (polimorfismo)
         if (!aluno.podeMatricular(turma.getCodigoDisciplina())) {
-            System.out.println("Erro: Aluno não pode ser matriculado nesta disciplina!");
             if (aluno instanceof AlunoEspecial) {
-                System.out.println("Alunos especiais podem cursar no máximo 2 disciplinas.");
+                AlunoEspecial alunoEspecial = (AlunoEspecial) aluno;
+                if (alunoEspecial.getDisciplinasMatriculadas().size() >= 2) {
+                    System.out.println("Erro: Alunos especiais podem cursar no máximo 2 disciplinas!");
+                } else {
+                    System.out.println("Erro: Aluno não pode ser matriculado nesta disciplina!");
+                }
+            } else {
+                System.out.println("Erro: Aluno não pode ser matriculado nesta disciplina!");
             }
             return;
         }
@@ -195,6 +201,9 @@ public class SistemaAcademico {
         if (turma.matricularAluno(matricula)) {
             aluno.matricularDisciplina(turma.getCodigoDisciplina());
             System.out.println("Aluno matriculado com sucesso!");
+            if (aluno instanceof AlunoEspecial) {
+                System.out.println("Lembre-se: Como aluno especial, você não receberá notas, apenas presença.");
+            }
         } else {
             System.out.println("Erro: Turma sem vagas disponíveis!");
         }
